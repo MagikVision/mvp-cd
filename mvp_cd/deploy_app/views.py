@@ -14,5 +14,6 @@ def deploy(request):
     if request.data['outcome'] == 'success':
         if request.data['branch'] == 'master':
             print(os.getcwd())
-            subprocess.call(['bash',  'deploy.sh'])
+            subprocess.call(['bash', 'deploy.sh',request.data['branch']])
             return Response(status=status.HTTP_204_NO_CONTENT)
+    return Response(status=status.HTTP_400_BAD_REQUEST)

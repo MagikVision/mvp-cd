@@ -17,6 +17,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from mvp_cd.deploy_app import views
+
 urlpatterns = [
     url(r'^deploy/$', views.deploy),
     url(r'^admin/', admin.site.urls),
