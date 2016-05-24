@@ -1,1 +1,1 @@
-/Users/manasdadheech/mvp_staging/mvp-backend
+/home/ubuntu/mvp-backend

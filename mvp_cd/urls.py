@@ -20,5 +20,6 @@ from mvp_cd.deploy_app import views
 
 urlpatterns = [
     url(r'^deploy/$', views.deploy),
+    url(r'^status/$', views.build_info),
     url(r'^admin/', admin.site.urls),
 ]

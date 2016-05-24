@@ -2,13 +2,13 @@ check_if_success(){
 if [ $? -ne 0 ]; then
     echo "error occured"
     exit
-else 
-	echo "command successfull"
+else
+        echo "command successfull"
 fi
 }
 
 pull_code(){
-git pull origin master
+git pull origin staging
 check_if_success
 }
 
@@ -18,7 +18,7 @@ check_if_success
 }
 
 restart_server(){
-service mvp restart
+sudo service mvp restart
 check_if_success
 }
 
@@ -32,4 +32,3 @@ cd $(<deploy_config.txt)
 pull_code
 run_migrations
 restart_server
-restart_elasticsearch

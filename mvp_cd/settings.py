@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'mvp_cd.deploy_app',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -54,7 +55,7 @@ ROOT_URLCONF = 'mvp_cd.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['deploy_app'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
