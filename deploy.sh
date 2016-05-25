@@ -32,9 +32,20 @@ service elasticsearch restart
 check_if_success
 }
 
+restart_celery(){
+sudo service supervisord restart
+check_if_success
+}
+
+update_docs(){
+cd docs/
+bundle exec middleman build
+check_if_success
+}
 
 cd $(<deploy_config.txt)
 pull_code
 install_requirements
 run_migrations
 restart_server
+update_docs
