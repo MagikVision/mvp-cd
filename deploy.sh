@@ -3,8 +3,13 @@ if [ $? -ne 0 ]; then
     echo "error occured"
     exit
 else
-        echo "command successfull"
+    echo "command successfull"
 fi
+}
+
+install_requirements(){
+pip install -r requirements.txt
+check_if_success
 }
 
 pull_code(){
@@ -30,5 +35,6 @@ check_if_success
 
 cd $(<deploy_config.txt)
 pull_code
+install_requirements
 run_migrations
 restart_server
