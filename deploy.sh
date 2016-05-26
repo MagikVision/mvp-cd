@@ -1,10 +1,18 @@
 check_if_success(){
-if [ $? -ne 0 ]; then
-    echo "error occured"
-    exit
-else
-    echo "command successfull"
-fi
+    if [ $? -ne 0 ]; then
+        echo "error occured"
+        exit
+    else
+        echo "command successfull"
+    fi
+}
+
+ssh_to_ip(){
+    # $1 being the path to pem file and $2 being ip of server
+    ssh -i $1 $2
+    check_if_success
+    cd $3
+    check_if_success
 }
 
 install_requirements(){
@@ -17,8 +25,9 @@ git pull origin staging
 check_if_success
 }
 
+
 run_migrations(){
-yes yes| python3 manage.py migrate --settings=mvpserver.settings.staging
+yes yes| python3 manage.py migrate --settings=$1
 check_if_success
 }
 
@@ -33,7 +42,7 @@ check_if_success
 }
 
 restart_celery(){
-sudo service supervisord restart
+sudo service supervisor restart
 check_if_success
 }
 
@@ -43,9 +52,3 @@ bundle exec middleman build
 check_if_success
 }
 
-cd $(<deploy_config.txt)
-pull_code
-install_requirements
-run_migrations
-restart_server
-update_docs
