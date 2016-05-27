@@ -16,7 +16,7 @@ ssh_to_ip(){
 }
 
 install_requirements(){
-pip install -r requirements.txt
+sudo pip install -r requirements.txt
 check_if_success
 }
 
