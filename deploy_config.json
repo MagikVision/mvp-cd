@@ -1,5 +1,5 @@
 {
-    "pem_path":"/home/ubuntu/mvp-python.pem"
+    "pem_path":"/home/ubuntu/mvp-python.pem",
 	"deployment_path": "/home/ubuntu/mvp-backend",
     "staging_app_server_ips":['52.35.1.36'],
     "staging_celery_ips":['52.35.1.36'],
