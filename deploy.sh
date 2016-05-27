@@ -42,8 +42,9 @@ check_if_success
 }
 
 restart_celery(){
-#sudo service supervisor restart
-#check_if_success
+# sudo service supervisor restart
+# check_if_success
+echo 'celery code here'
 }
 
 update_docs(){
