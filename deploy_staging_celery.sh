@@ -4,4 +4,3 @@ pull_code
 install_requirements
 run_migrations mvpserver.settings.staging
 restart_celery
-update_docs

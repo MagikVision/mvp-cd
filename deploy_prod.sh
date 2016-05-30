@@ -4,4 +4,4 @@ pull_code
 install_requirements
 run_migrations mvpserver.settings.production
 restart_server
-update_docs
+
