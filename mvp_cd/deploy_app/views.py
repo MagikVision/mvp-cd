@@ -37,7 +37,7 @@ def deploy(request):
 
 
 def build_info(request):
-    build_info = StagingBuildInfo.objects.all().order_by('id')
+    build_info = StagingBuildInfo.objects.all().order_by('-id')
     return render_to_response(
         'build_info.html', {'build_info_item': build_info[0]})
 
