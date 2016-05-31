@@ -73,7 +73,8 @@ def deploy_celery_production(
         request, ip, pem_path, deployment_path, build_info_obj):
     try:
         process_output = subprocess.check_output(
-            ['bash', 'deploy_prod_celery.sh', pem_path, ip, deployment_path],stdin=subprocess.PIPE)
+            ['bash',
+             'deploy_prod_celery.sh', pem_path, ip, deployment_path],stdin=subprocess.PIPE)
         process_status(
             request, process_output, 0, ip, ServerType.WORKER, build_info_obj)
     except subprocess.CalledProcessError as e:
@@ -84,7 +85,8 @@ def deploy_celery_production(
 def deploy_app_staging(request, ip, pem_path, deployment_path, build_info_obj):
     try:
         process_output = subprocess.check_output(
-            ['bash', 'deploy_staging.sh', pem_path, ip, deployment_path],stdin=subprocess.PIPE)
+            ['bash',
+             'deploy_staging.sh', pem_path, ip, deployment_path],stdin=subprocess.PIPE)
         process_status(
             request,
             process_output, 0, ip, ServerType.APP_SERVER, build_info_obj)
@@ -97,7 +99,8 @@ def deploy_app_production(
         request, ip, pem_path, deployment_path, build_info_obj):
     try:
         process_output = subprocess.check_output(
-            ['bash', 'deploy_prod.sh', pem_path, ip, deployment_path],stdin=subprocess.PIPE)
+            ['bash',
+             'deploy_prod.sh', pem_path, ip, deployment_path],stdin=subprocess.PIPE)
         process_status(
             request,
             process_output, 0, ip, ServerType.APP_SERVER, build_info_obj)
