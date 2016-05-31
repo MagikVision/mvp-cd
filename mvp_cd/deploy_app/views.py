@@ -43,76 +43,97 @@ def build_info(request):
 
 
 def deploy_celery_staging(request, ip, pem_path, deployment_path):
-    process_status = subprocess.call(
-        ['bash', 'deploy_staging_celery.sh', pem_path, ip, deployment_path])
-    process_status_staging_celery(request, process_status)
+    try:
+        process_output = subprocess.check_output(
+            ['bash', 'deploy_staging_celery.sh', pem_path,
+             ip, deployment_path])
+        process_status_staging_celery(request, process_output, 0)
+    except subprocess.CalledProcessError as e:
+        process_status_staging_celery(request, e.output, 1)
 
 
 def deploy_celery_production(request, ip, pem_path, deployment_path):
-    process_status = subprocess.call(
-        ['bash', 'deploy_prod_celery.sh', pem_path, ip, deployment_path])
-    process_status_production_celery(request, process_status)
+    try:
+        process_output = subprocess.check_output(
+            ['bash', 'deploy_prod_celery.sh', pem_path, ip, deployment_path])
+        process_status_production_celery(request, process_output, 0)
+    except subprocess.CalledProcessError as e:
+        process_status_production_celery(request, e.output, 1)
 
 
 def deploy_app_staging(request, ip, pem_path, deployment_path):
-    process_status = subprocess.call(
-        ['bash', 'deploy_staging.sh', pem_path, ip, deployment_path])
-    process_status_staging(request, process_status)
+    try:
+        process_output = subprocess.check_output(
+            ['bash', 'deploy_staging.sh', pem_path, ip, deployment_path])
+        process_status_staging(request, process_output, 0)
+    except subprocess.CalledProcessError as e:
+        process_status_staging(request, e.output, 1)
 
 
 def deploy_app_production(request, ip, pem_path, deployment_path):
-    process_status = subprocess.call(
-        ['bash', 'deploy_prod.sh', pem_path, ip, deployment_path])
-    process_status_production(request, process_status)
+    try:
+        process_output = subprocess.check_output(
+            ['bash', 'deploy_prod.sh', pem_path, ip, deployment_path])
+        process_status_production(request, process_output, 0)
+    except subprocess.CalledProcessError as e:
+        process_status_production(request, e.output, 1)
 
 
-def process_status_staging(request, process_status):
+def process_status_staging(request, process_output, process_status):
     if process_status == 0:
         build_info_item = StagingBuildInfo(
             curr_build_info=json.dumps(request.data['payload']),
-            is_success='True')
+            is_success='True',
+            console_output=process_output)
         build_info_item.save()
     else:
         build_info_item = StagingBuildInfo(
             curr_build_info=json.dumps(request.data['payload']),
-            is_success='False')
+            is_success='False',
+            console_output=process_output)
         build_info_item.save()
 
 
-def process_status_production(request, process_status):
+def process_status_production(request, process_output, process_status):
     if process_status == 0:
         build_info_item = ProductionBuildInfo(
             curr_build_info=json.dumps(request.data['payload']),
-            is_success='True')
+            is_success='True',
+            console_output=process_output)
         build_info_item.save()
     else:
         build_info_item = ProductionBuildInfo(
             curr_build_info=json.dumps(request.data['payload']),
-            is_success='False')
+            is_success='False',
+            console_output=process_output)
         build_info_item.save()
 
 
-def process_status_production_celery(request, process_status):
+def process_status_production_celery(request, process_output, process_status):
     if process_status == 0:
         build_info_item = ProductionWorkerBuildInfo(
             curr_build_info=json.dumps(request.data['payload']),
-            is_success='True')
+            is_success='True',
+            console_output=process_output)
         build_info_item.save()
     else:
         build_info_item = ProductionWorkerBuildInfo(
             curr_build_info=json.dumps(request.data['payload']),
-            is_success='False')
+            is_success='False',
+            console_output=process_output)
         build_info_item.save()
 
 
-def process_status_staging_celery(request, process_status):
+def process_status_staging_celery(request, process_output, process_status):
     if process_status == 0:
         build_info_item = StagingWorkerBuildInfo(
             curr_build_info=json.dumps(request.data['payload']),
-            is_success='True')
+            is_success='True',
+            console_output=process_output)
         build_info_item.save()
     else:
         build_info_item = StagingWorkerBuildInfo(
             curr_build_info=json.dumps(request.data['payload']),
-            is_success='False')
+            is_success='False',
+            console_output=process_output)
         build_info_item.save()
