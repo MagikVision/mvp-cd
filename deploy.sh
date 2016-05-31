@@ -9,7 +9,7 @@ check_if_success(){
 
 ssh_to_ip(){
     # $1 being the path to pem file and $2 being ip of server
-    ssh -i $1 $2
+    ssh -T -i $1 $2
     check_if_success
     cd $3
     check_if_success
