@@ -24,28 +24,27 @@ border: 1px solid black ;
   <H3 ALIGN='CENTER'>Build Details</H3>
     <H4>Circleci link</H4>
     <a href="{{ build_info_item.circleci_url }}">{{ build_info_item.circleci_url }}</a>
-    </br>
 
     <H4>Committed By</H4>
     {{ build_info_item.commitor }}
-    </br>
 
     <H4>Branch</H4>
     {{ build_info_item.branch }}
     </br>
-
+    </br>
 <div class="row">
   <div class="col-md-12" >
       <div class="panel panel-default" >
                 {% for list_item in serverbuildinfo_list %}
-              
+              <div class="row">
+  <div class="col-md-12" >
+      <div class="panel panel-default"  style = "margin:4; padding:4">
                             <table class="table">
                               <tr>
                                 <th>Ip</th>
                                 <th>Server Type</th>
                                 <th>Process Return Boolean</th>
                               </tr>
-
                               <tr>
                 <td>
                 {{ list_item.ip }}</td>
@@ -57,6 +56,9 @@ border: 1px solid black ;
                 {{ list_item.is_success }}</td>
                 </tr>
                 </table>
+                </div>
+                </div>
+                </div>
 
                 <H3>Console Output</H3>
               <div class="boxed"><pre> <code> {{ list_item.console_output }} </code></pre>
