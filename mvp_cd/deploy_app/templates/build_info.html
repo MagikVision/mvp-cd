@@ -20,12 +20,16 @@
 
 
     {% for list_item in serverbuildinfo_list %}
+    
     {{ list_item.ip }}
     {{ list_item.server_type }}
     {{ list_item.is_success }}
     {{ list_item.console_output }}
-
     <br>
+
+    {% endfor %}
+
+
 
   </body>
 
