@@ -12,9 +12,20 @@
 
   <body style="background-color:#E6E6FA">
 
-    {{ build_info_item.curr_build_info }}
+    {{ build_info_item.circleci_url }}
 
-    {{ build_info_item.is_success }}
+    {{ build_info_item.commitor }}
+
+    {{ build_info_item.branch }}
+
+
+    {% for list_item in serverbuildinfo_list %}
+    {{ list_item.ip }}
+    {{ list_item.server_type }}
+    {{ list_item.is_success }}
+    {{ list_item.console_output }}
+
+    <br>
 
   </body>
 
