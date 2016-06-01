@@ -15,10 +15,11 @@
     <h3> Build List</h3>
 
 {% for list_item in build_list %}
-    <a href="{% url 'mvp_cd:details' list_item.id %}">{{ list_item.id}}</a>
+    <a href="{% url 'details' list_item.id %}">{{ list_item.id}}</a>
     {{ list_item.circleci_url }}
     {{ list_item.commitor }}
     {{ list_item.branch }}
+    <br>
 
 {% endfor %}
 

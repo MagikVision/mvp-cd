@@ -55,8 +55,8 @@ def build_detail_view(request, id):
     serverbuildinfo_list = build_info.serverbuildinfo_set.all().order_by('-id')
     return render_to_response(
         'build_info.html',
-        {'build_info_item': build_info},
-        {'serverbuildinfo_list': serverbuildinfo_list})
+        {'build_info_item': build_info,
+            'serverbuildinfo_list': serverbuildinfo_list})
 
 
 def deploy_celery_staging(
