@@ -14,7 +14,7 @@
     <body 
     style=" margin:4; padding:4">
 
-    <h3 ALIGN="LEFT"> Build List</h3>
+    <h3 ALIGN="CENTER"> Build List</h3>
 <div class="row">
   <div class="col-md-12" >
       <div class="panel panel-default"  style = "margin:4; padding:4">
@@ -22,14 +22,14 @@
               <tr>
                 <th>Id</th>
                 <th>Circleci url</th>
-                <th>Commitor</th>
+                <th>Committed by</th>
                 <th>Branch</th>
               </tr>
              
               {% for list_item in build_list %}
                <tr>
                <td> <a href="{% url 'details' list_item.id %}">{{ list_item.id}}</a></td>
-                <td>{{ list_item.circleci_url }}</td>
+                <td><a href="{{ list_item.circleci_url }}">{{ list_item.circleci_url }}</a></td>
                 <td>{{ list_item.commitor }}</td>
                 <td>{{ list_item.branch }}</td>
                 </tr>

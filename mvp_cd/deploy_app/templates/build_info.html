@@ -13,13 +13,16 @@
   </head>
 
   <body >
-
-    {{ build_info_item.circleci_url }}
+  <H3 ALIGN='CENTER'>Build Details</H3>
+    <H4>Circleci link</H4>
+    <a href="{{ build_info_item.circleci_url }}">{{ build_info_item.circleci_url }}</a>
     </br>
 
+    <H4>Committed By</H4>
     {{ build_info_item.commitor }}
     </br>
 
+    <H4>Branch</H4>
     {{ build_info_item.branch }}
     </br>
 
@@ -38,7 +41,7 @@
                 {{ list_item.is_success }}
 
                 <H3>Console Output</H3>
-                {{ list_item.console_output }}
+               <code> {{ list_item.console_output }} </code>
     </br>
                 {% endfor %}
 
