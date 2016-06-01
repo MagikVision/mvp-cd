@@ -12,8 +12,7 @@
     overflow: scroll;
 padding: 5px 10px;
 border: 1px solid black ;
- background-color: #000000;
-  color : #ffffff;
+
 }
 </style>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -24,14 +23,14 @@ border: 1px solid black ;
 
   <body >
   <H3 ALIGN='CENTER'>Build Details</H3>
-    <H4>Circleci link</H4>
-    <a href="{{ build_info_item.circleci_url }}">{{ build_info_item.circleci_url }}</a>
+    <H4 ALIGN='CENTER'>Circleci link</H4>
+   <CENTER> <a href="{{ build_info_item.circleci_url }}">{{ build_info_item.circleci_url }}</a></CENTER>
 
-    <H4>Committed By</H4>
-    {{ build_info_item.commitor }}
+    <H4 ALIGN='CENTER'>Committed By</H4>
+   <CENTER>{{ build_info_item.commitor }}</CENTER>
 
-    <H4>Branch</H4>
-    {{ build_info_item.branch }}
+    <H4 ALIGN='CENTER'>Branch</H4>
+   <CENTER> {{ build_info_item.branch }}</CENTER>
     </br>
     </br>
 <div class="row">
