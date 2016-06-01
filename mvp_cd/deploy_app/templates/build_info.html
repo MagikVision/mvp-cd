@@ -5,7 +5,15 @@
 
 
   <head>
-
+<style>
+.boxed {
+    overflow: scroll;
+padding: 5px 10px;
+border: 1px solid black ;
+ background-color: #000000;
+  color : #ffffff;
+}
+</style>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
     <title>MVP Deployment</title>
@@ -30,26 +38,37 @@
   <div class="col-md-12" >
       <div class="panel panel-default" >
                 {% for list_item in serverbuildinfo_list %}
+              
+                            <table class="table">
+                              <tr>
+                                <th>Ip</th>
+                                <th>Server Type</th>
+                                <th>Process Return Boolean</th>
+                              </tr>
 
-                <H3>Ip</H3>
-                {{ list_item.ip }}
+                              <tr>
+                <td>
+                {{ list_item.ip }}</td>
 
-                <H3>Server Type</H3>
-                {{ list_item.server_type }}
+                <td>
+                {{ list_item.server_type }}</td>
 
-                <H3>Process Return Boolean</H3>
-                {{ list_item.is_success }}
+               <td>
+                {{ list_item.is_success }}</td>
+                </tr>
+                </table>
 
                 <H3>Console Output</H3>
-               <code> {{ list_item.console_output }} </code>
-    </br>
+              <div class="boxed"><pre> <code> {{ list_item.console_output }} </code></pre>
+</div>
+</br>
                 {% endfor %}
 
     </div>
 
     </div>
     </div>
-    
+
     </body>
 
 </html>
