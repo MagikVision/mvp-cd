@@ -2,6 +2,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
+
+
   <head>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -18,13 +20,34 @@
 
     {{ build_info_item.branch }}
 
-
+<div class="row">
+  <div class="col-md-12" >
+      <div class="panel panel-default" >
+            <table class="table">
+              <tr>
+                <th>Ip</th>
+                <th>Server Type</th>
+                <th>Process Return Boolean</th>
+                <th>Console Output</th>
+              </tr>
     {% for list_item in serverbuildinfo_list %}
+
+         <tr>
+                <td>{{ list_item.ip }}</td>
+                <th>{{ list_item.server_type }}</th>
+                <th>{{ list_item.is_success }}</th>
+                <th>{{ list_item.console_output }}</th>
+                <th>Configure</th>
+                <th></th>
+              </tr>
     
-    {{ list_item.ip }}
-    {{ list_item.server_type }}
-    {{ list_item.is_success }}
-    {{ list_item.console_output }}
+         </table>
+          </div>
+
+    </div>
+    </div>
+    
+    
     <br>
 
     {% endfor %}

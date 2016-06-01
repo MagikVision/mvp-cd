@@ -7,6 +7,7 @@ class ServerType(object):
     APP_SERVER = 'app_server'
     WORKER = 'celery_worker'
 
+
 class BuildInfo(models.Model):
     circleci_json = models.TextField()
     branch = models.CharField(max_length=255)

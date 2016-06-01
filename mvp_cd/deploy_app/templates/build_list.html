@@ -2,7 +2,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
+    
+ 
+
   <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
@@ -13,15 +18,34 @@
     <body style="background-color:#E6E6FA">
 
     <h3> Build List</h3>
+<div class="row">
+  <div class="col-md-12" >
+      <div class="panel panel-default" >
+            <table class="table">
+              <tr>
+                <th>Id</th>
+                <th>Circleci url</th>
+                <th>Commitor</th>
+                <th>Branch</th>
+              </tr>
+             
+              {% for list_item in build_list %}
+               <tr>
+               <td> <a href="{% url 'details' list_item.id %}">{{ list_item.id}}</a></td>
+                <td>{{ list_item.circleci_url }}</td>
+                <td>{{ list_item.commitor }}</td>
+                <td>{{ list_item.branch }}</td>
+                <br>
+                </tr>
+              {% endfor %}
 
-{% for list_item in build_list %}
-    <a href="{% url 'details' list_item.id %}">{{ list_item.id}}</a>
-    {{ list_item.circleci_url }}
-    {{ list_item.commitor }}
-    {{ list_item.branch }}
-    <br
+              
+    
+         </table>
+          </div>
 
-{% endfor %}
+    </div>
+    </div>
 
   </body>
 
