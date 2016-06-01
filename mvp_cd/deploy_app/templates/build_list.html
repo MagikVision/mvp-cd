@@ -1,10 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-
-    
- 
-
   <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
@@ -15,12 +11,13 @@
 
   </head>
 
-    <body style="background-color:#E6E6FA">
+    <body 
+    style="background-color:#E6E6FA; margin:4; padding:4">
 
     <h3> Build List</h3>
 <div class="row">
   <div class="col-md-12" >
-      <div class="panel panel-default" >
+      <div class="panel panel-default"  style = "margin:4; padding:4">
             <table class="table">
               <tr>
                 <th>Id</th>
@@ -35,7 +32,6 @@
                 <td>{{ list_item.circleci_url }}</td>
                 <td>{{ list_item.commitor }}</td>
                 <td>{{ list_item.branch }}</td>
-                <br>
                 </tr>
               {% endfor %}
 

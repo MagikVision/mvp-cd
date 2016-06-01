@@ -12,48 +12,41 @@
 
   </head>
 
-  <body style="background-color:#E6E6FA">
+  <body style="background-color:#0000ff">
 
     {{ build_info_item.circleci_url }}
+    </br>
 
     {{ build_info_item.commitor }}
+    </br>
 
     {{ build_info_item.branch }}
+    </br>
 
 <div class="row">
   <div class="col-md-12" >
       <div class="panel panel-default" >
-            <table class="table">
-              <tr>
-                <th>Ip</th>
-                <th>Server Type</th>
-                <th>Process Return Boolean</th>
-                <th>Console Output</th>
-              </tr>
-    {% for list_item in serverbuildinfo_list %}
+                {% for list_item in serverbuildinfo_list %}
 
-         <tr>
-                <td>{{ list_item.ip }}</td>
-                <th>{{ list_item.server_type }}</th>
-                <th>{{ list_item.is_success }}</th>
-                <th>{{ list_item.console_output }}</th>
-                <th>Configure</th>
-                <th></th>
-              </tr>
-    
-         </table>
-          </div>
+                <H3>Ip</H3>
+                {{ list_item.ip }}
+
+                <H3>Server Type</H3>
+                {{ list_item.server_type }}
+
+                <H3>Process Return Boolean</H3>
+                {{ list_item.is_success }}
+
+                <H3>Console Output</H3>
+                {{ list_item.console_output }}
+    </br>
+                {% endfor %}
+
+    </div>
 
     </div>
     </div>
     
-    
-    <br>
-
-    {% endfor %}
-
-
-
-  </body>
+    </body>
 
 </html>
