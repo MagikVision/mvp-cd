@@ -22,6 +22,7 @@ check_if_success
 
 pull_code(){
 git pull origin staging
+git checkout $1
 check_if_success
 }
 
@@ -42,9 +43,8 @@ check_if_success
 }
 
 restart_celery(){
-# sudo service supervisor restart
-# check_if_success
-echo 'celery code here'
+sudo supervisorctl restart celery
+check_if_success
 }
 
 update_docs(){

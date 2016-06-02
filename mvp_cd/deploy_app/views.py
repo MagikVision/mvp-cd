@@ -14,11 +14,13 @@ from django.shortcuts import get_object_or_404
 @api_view(['POST'])
 def deploy_view(request):
     if request.data['outcome'] == 'success':
+        vcs_revision = request.data['vcs_revision']
         build_info_obj = BuildInfo(
             circleci_json=request.data,
             branch=request.data['branch'],
             commitor=request.data['author_name'],
-            circleci_url=request.data['build_url'])
+            circleci_url=request.data['build_url'],
+            vcs_revision=vcs_revision)
         build_info_obj.save()
         with open('deploy_config.json') as data_file:
             deploy_config = json.load(data_file)
@@ -28,18 +30,26 @@ def deploy_view(request):
         if request.data['branch'] == 'staging':
             for ip in deploy_config['staging_celery_ips']:
                 deploy_celery_staging(
-                    request, ip, pem_path, deployment_path, build_info_obj)
+                    request,
+                    ip, pem_path,
+                    deployment_path, build_info_obj, vcs_revision)
             for ip in deploy_config['staging_app_server_ips']:
                 deploy_app_staging(
-                    request, ip, pem_path, deployment_path, build_info_obj)
+                    request,
+                    ip,
+                    pem_path, deployment_path, build_info_obj, vcs_revision)
             return Response(status=status.HTTP_204_NO_CONTENT)
         elif request.data['branch'] == 'production':
             for ip in deploy_config['production_celery_ips']:
                 deploy_celery_production(
-                    request, ip, pem_path, deployment_path, build_info_obj)
+                    request,
+                    ip,
+                    pem_path, deployment_path, build_info_obj, vcs_revision)
             for ip in deploy_config['production_app_server_ips']:
                 deploy_app_production(
-                    request, ip, pem_path, deployment_path, build_info_obj)
+                    request,
+                    ip,
+                    pem_path, deployment_path, build_info_obj, vcs_revision)
             return Response(status=status.HTTP_204_NO_CONTENT)
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
@@ -60,11 +70,11 @@ def build_detail_view(request, id):
 
 
 def deploy_celery_staging(
-        request, ip, pem_path, deployment_path, build_info_obj):
+        request, ip, pem_path, deployment_path, build_info_obj, vcs_revision):
     try:
         process_output = subprocess.check_output(
             ['bash', 'deploy_staging_celery.sh', pem_path,
-             ip, deployment_path], stdin=subprocess.PIPE)
+             ip, deployment_path, vcs_revision], stdin=subprocess.PIPE)
         process_status(
             request, process_output, 0, ip, ServerType.WORKER, build_info_obj)
     except subprocess.CalledProcessError as e:
@@ -73,12 +83,13 @@ def deploy_celery_staging(
 
 
 def deploy_celery_production(
-        request, ip, pem_path, deployment_path, build_info_obj):
+        request, ip, pem_path, deployment_path, build_info_obj, vcs_revision):
     try:
         process_output = subprocess.check_output(
             ['bash',
              'deploy_prod_celery.sh',
-             pem_path, ip, deployment_path], stdin=subprocess.PIPE)
+             pem_path,
+             ip, deployment_path, vcs_revision], stdin=subprocess.PIPE)
         process_status(
             request, process_output, 0, ip, ServerType.WORKER, build_info_obj)
     except subprocess.CalledProcessError as e:
@@ -86,12 +97,14 @@ def deploy_celery_production(
             request, e.output, 1, ip, ServerType.WORKER, build_info_obj)
 
 
-def deploy_app_staging(request, ip, pem_path, deployment_path, build_info_obj):
+def deploy_app_staging(
+        request, ip, pem_path, deployment_path, build_info_obj, vcs_revision):
     try:
         process_output = subprocess.check_output(
             ['bash',
              'deploy_staging.sh',
-             pem_path, ip, deployment_path], stdin=subprocess.PIPE)
+             pem_path,
+             ip, deployment_path, vcs_revision], stdin=subprocess.PIPE)
         process_status(
             request,
             process_output, 0, ip, ServerType.APP_SERVER, build_info_obj)
@@ -101,12 +114,13 @@ def deploy_app_staging(request, ip, pem_path, deployment_path, build_info_obj):
 
 
 def deploy_app_production(
-        request, ip, pem_path, deployment_path, build_info_obj):
+        request, ip, pem_path, deployment_path, build_info_obj, vcs_revision):
     try:
         process_output = subprocess.check_output(
             ['bash',
              'deploy_prod.sh',
-             pem_path, ip, deployment_path], stdin=subprocess.PIPE)
+             pem_path,
+             ip, deployment_path, vcs_revision], stdin=subprocess.PIPE)
         process_status(
             request,
             process_output, 0, ip, ServerType.APP_SERVER, build_info_obj)
@@ -117,7 +131,8 @@ def deploy_app_production(
 
 def process_status(
         request,
-        process_output, process_status, ip, server_type, build_info_obj):
+        process_output,
+        process_status, ip, server_type, build_info_obj):
     print(process_output)
     if process_status == 0:
         build_info_item = ServerBuildInfo(

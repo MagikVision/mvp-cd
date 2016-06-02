@@ -14,6 +14,7 @@ class BuildInfo(models.Model):
     commitor = models.CharField(max_length=255)
     circleci_url = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
+    vcs_revision = models.TextField(default='0000000')
 
 
 class ServerBuildInfo(models.Model):
