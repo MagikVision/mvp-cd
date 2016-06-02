@@ -141,6 +141,8 @@ def process_status(
             ip=ip,
             server_type=server_type,
             build_info=build_info_obj)
+        build_info_obj.deployment_status = True
+        build_info_obj.save()
         build_info_item.save()
     else:
         build_info_item = ServerBuildInfo(
@@ -149,4 +151,6 @@ def process_status(
             ip=ip,
             server_type=server_type,
             build_info=build_info_obj)
+        build_info_obj.deployment_status = false
+        build_info_obj.save()
         build_info_item.save()

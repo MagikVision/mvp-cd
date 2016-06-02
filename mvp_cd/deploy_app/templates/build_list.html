@@ -24,6 +24,7 @@
                 <th>Circleci url</th>
                 <th>Committed by</th>
                 <th>Branch</th>
+                <th>Deployment status</th>
               </tr>
              
               {% for list_item in build_list %}
@@ -32,6 +33,7 @@
                 <td><a href="{{ list_item.circleci_url }}">{{ list_item.circleci_url }}</a></td>
                 <td>{{ list_item.commitor }}</td>
                 <td>{{ list_item.branch }}</td>
+                <td>{{ list_item.deployment_status }}</td>
                 </tr>
               {% endfor %}
 

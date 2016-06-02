@@ -15,6 +15,7 @@ class BuildInfo(models.Model):
     circleci_url = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     vcs_revision = models.TextField(default='0000000')
+    deployment_status = models.BooleanField(default=False)
 
 
 class ServerBuildInfo(models.Model):
