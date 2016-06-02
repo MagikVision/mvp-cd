@@ -13,13 +13,13 @@ from django.shortcuts import get_object_or_404
 
 @api_view(['POST'])
 def deploy_view(request):
-    if request.data['outcome'] == 'success':
-        vcs_revision = request.data['vcs_revision']
+    if request.data['payload']['outcome'] == 'success':
+        vcs_revision = request.data['payload']['vcs_revision']
         build_info_obj = BuildInfo(
             circleci_json=request.data,
-            branch=request.data['branch'],
-            commitor=request.data['author_name'],
-            circleci_url=request.data['build_url'],
+            branch=request.data['payload']['branch'],
+            commitor=request.data['payload']['author_name'],
+            circleci_url=request.data['payload']['build_url'],
             vcs_revision=vcs_revision)
         build_info_obj.save()
         with open('deploy_config.json') as data_file:
@@ -27,7 +27,7 @@ def deploy_view(request):
             pem_path = deploy_config['pem_path']
             deployment_path = deploy_config['deployment_path']
 
-        if request.data['branch'] == 'staging':
+        if request.data['payload']['branch'] == 'staging':
             for ip in deploy_config['staging_celery_ips']:
                 deploy_celery_staging(
                     request,
@@ -39,7 +39,7 @@ def deploy_view(request):
                     ip,
                     pem_path, deployment_path, build_info_obj, vcs_revision)
             return Response(status=status.HTTP_204_NO_CONTENT)
-        elif request.data['branch'] == 'production':
+        elif request.data['payload']['branch'] == 'production':
             for ip in deploy_config['production_celery_ips']:
                 deploy_celery_production(
                     request,
