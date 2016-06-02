@@ -8,12 +8,15 @@ import json
 from django.shortcuts import get_object_or_404
 
 
-# Create your views here.
+ALLOWED_BRANCHES = ['staging', 'production']
 
 
 @api_view(['POST'])
 def deploy_view(request):
     if request.data['payload']['outcome'] == 'success':
+        if request.data['payload']['branch'] not in ALLOWED_BRANCHES:
+            return Response(status=status.HTTP_204_NO_CONTENT)
+
         vcs_revision = request.data['payload']['vcs_revision']
         build_info_obj = BuildInfo(
             circleci_json=request.data,
