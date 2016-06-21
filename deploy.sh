@@ -9,7 +9,7 @@ check_if_success(){
 
 ssh_to_ip(){
     # $1 being the path to pem file and $2 being ip of server
-    ssh -i $1 $2
+    ssh -T -i $1 $2
     check_if_success
     cd $3
     check_if_success
@@ -22,6 +22,7 @@ check_if_success
 
 pull_code(){
 git pull origin staging
+git checkout $1
 check_if_success
 }
 
@@ -42,9 +43,8 @@ check_if_success
 }
 
 restart_celery(){
-# sudo service supervisor restart
-# check_if_success
-echo 'celery code here'
+sudo supervisorctl restart celery
+check_if_success
 }
 
 update_docs(){

@@ -19,7 +19,8 @@ from django.contrib import admin
 from mvp_cd.deploy_app import views
 
 urlpatterns = [
-    url(r'^deploy/$', views.deploy),
-    url(r'^status/$', views.build_info),
+    url(r'^deploy/e88e26fd-e45f-4e9c-8fca-5d42327a33ac/$', views.deploy_view),
+    url(r'^status/([0-9]+)/$', views.build_detail_view, name='details'),
+    url(r'^status/$', views.build_list_view),
     url(r'^admin/', admin.site.urls),
 ]
