@@ -73,8 +73,9 @@ def deploy_celery_staging(
         build_info_obj, vcs_revision):
     try:
         process_output = subprocess.check_output(
-            ['bash', 'deploy_staging_celery.sh', pem_path,
-             ip, deployment_path, vcs_revision], stdin=subprocess.PIPE)
+            ['bash', 'deploy_worker.sh', pem_path,
+             ip, deployment_path, vcs_revision, 'mvpserver.settings.staging'],
+            stdin=subprocess.PIPE)
         process_status(
             request, process_output, 0, ip,
             ServerType.WORKER, build_info_obj)
@@ -89,8 +90,9 @@ def deploy_celery_production(
         build_info_obj, vcs_revision):
     try:
         process_output = subprocess.check_output(
-            ['bash', 'deploy_prod_celery.sh', pem_path, ip, deployment_path,
-             vcs_revision], stdin=subprocess.PIPE)
+            ['bash', 'deploy_worker.sh', pem_path, ip, deployment_path,
+             vcs_revision, 'mvpserver.settings.production'],
+            stdin=subprocess.PIPE)
         process_status(
             request, process_output, 0, ip,
             ServerType.WORKER, build_info_obj)
@@ -105,8 +107,9 @@ def deploy_app_staging(
         build_info_obj, vcs_revision):
     try:
         process_output = subprocess.check_output(
-            ['bash', 'deploy_staging.sh', pem_path, ip, deployment_path,
-             vcs_revision], stdin=subprocess.PIPE)
+            ['bash', 'deploy_app.sh', pem_path, ip, deployment_path,
+             vcs_revision, 'mvpserver.settings.staging'],
+            stdin=subprocess.PIPE)
         process_status(
             request, process_output, 0, ip,
             ServerType.APP_SERVER, build_info_obj)
@@ -121,8 +124,9 @@ def deploy_app_production(
         build_info_obj, vcs_revision):
     try:
         process_output = subprocess.check_output(
-            ['bash', 'deploy_prod.sh', pem_path, ip, deployment_path,
-             vcs_revision], stdin=subprocess.PIPE)
+            ['bash', 'deploy_app.sh', pem_path, ip, deployment_path,
+             vcs_revision, 'mvpserver.settings.production'],
+            stdin=subprocess.PIPE)
         process_status(
             request, process_output, 0, ip,
             ServerType.APP_SERVER, build_info_obj)
